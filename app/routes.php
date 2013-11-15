@@ -9,11 +9,31 @@ Route::get('/', function()
 	$url = Request::url();
 	$state = md5(uniqid(rand(), TRUE));
 
+	switch ($url) {
+		case 'http://app1.dev':
+			$redirect = 'http://oauth.bintercanarias.dev/oauth?client_id=1&redirect_uri=http://app1.dev/login/1&response_type=code&scope=user&state='.$state;
+			break;
+		case 'http://app2.dev':
+			$redirect = 'http://oauth.bintercanarias.dev/oauth?client_id=2&redirect_uri=http://app2.dev/login/2&response_type=code&scope=user&state='.$state;
+			break;
+		case 'http://app3.dev':
+			$redirect = 'http://oauth.bintercanarias.dev/oauth?client_id=3&redirect_uri=http://app3.dev/login/3&response_type=code&scope=user&state='.$state;
+			break;					
+		default:
+			$redirect = null;
+			break;
+	}	
+
 	if (isset($result->status) && $result->status==1) {
 		return View::make('client.home', array("url"=>$url));
 	}
 	else {
-		return View::make('client.login', array("url"=>$url, "state"=>$state));
+		if ($redirect) {
+			return Redirect::to($redirect);
+		}
+		else {
+			return View::make('client.login', array("url"=>$url, "state"=>$state));
+		}			
 	}
 });
 
@@ -35,24 +55,28 @@ Route::get('/login/{id}', function($id)
 
 //SERVER
 
-Route::get('/logout/{token}', function($token)
+Route::get('/logout/{id}', function($id)
 {
-    $result = DB::table('oauth_sessions')
-		->select(array('oauth_sessions.id as session_id', 'oauth_sessions.client_id as client_id', 'oauth_client_endpoints.redirect_uri as redirect_uri'))
-		->join('oauth_session_access_tokens', 'oauth_sessions.id', '=', 'oauth_session_access_tokens.session_id')
-		->join('oauth_client_endpoints', 'oauth_sessions.client_id', '=', 'oauth_client_endpoints.client_id')
-		->where('oauth_session_access_tokens.access_token', $token)
+    $result = DB::table('oauth_client_endpoints')
+		->select(array('oauth_client_endpoints.redirect_uri as redirect_uri'))
+		->where('oauth_client_endpoints.client_id', $id)
 		->first();
 
-	if (!Auth::guest()) {
-		DB::table('oauth_sessions')
-			->where('client_id', $result->client_id)
+	if (isset($result->redirect_uri)) {
+
+		if (!Auth::guest()) {
+			DB::table('oauth_sessions')
+			->where('client_id', $id)
 			->where('owner_id', Auth::user()->id)
 			->delete();
-		Auth::logout();
-	}
+			Auth::logout();				
+		}
 
-	return Redirect::to($result->redirect_uri);
+		return Redirect::to($result->redirect_uri);
+	}
+	else {
+		return Redirect::to('/');	
+	}
 });
 
 Route::get('/oauth', array('before' => 'check-authorization-params', function()
