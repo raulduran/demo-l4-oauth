@@ -1,4 +1,4 @@
-<?php namespace Acme\Repository;
+<?php namespace Acme\Repositories;
 
 class Curl {
 	
@@ -6,7 +6,7 @@ class Curl {
 
 	}
 
-	public function getTokenBinter($client_id, $client_secret, $redirect_uri, $code) {
+	public function postToken($client_id, $client_secret, $redirect_uri, $code) {
 
 		//set POST variables
 		$url = 'http://oauth.bintercanarias.dev/access_token';
