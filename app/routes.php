@@ -7,12 +7,13 @@ Route::get('/', function()
 	$result = @json_decode(file_get_contents('http://oauth.bintercanarias.dev/check?access_token='.Cookie::get('access_token')));
 
 	$url = Request::url();
+	$state = md5(uniqid(rand(), TRUE));
 
 	if (isset($result->status) && $result->status==1) {
 		return View::make('client.home', array("url"=>$url));
 	}
 	else {
-		return View::make('client.login', array("url"=>$url));
+		return View::make('client.login', array("url"=>$url, "state"=>$state));
 	}
 });
 
@@ -120,8 +121,15 @@ Route::get('/authorize', array('before' => 'check-params|auth', function()
 	// get the user id
 	$params['user_id'] = Auth::user()->id;
 
-	// display the authorization form
-	return View::make('server.authorize', array('params' => $params));
+	if ($params['client_details']['auto']==1) {
+		$code = AuthorizationServer::newAuthorizeRequest('user', $params['user_id'], $params);
+		Session::forget('authorize-params');
+		return Redirect::to(AuthorizationServer::makeRedirectWithCode($code, $params));
+	}
+	else {
+		// display the authorization form
+		return View::make('server.authorize', array('params' => $params));
+	}
 }));
 
 Route::post('/authorize', array('before' => 'check-params|auth|csrf', function()
