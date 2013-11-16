@@ -6,7 +6,7 @@
 
 @section('content')
 	@if (Session::has('message'))
-		<p class="alert alert-danger">{{ Session::get('message') }}</p>
+		<div class="alert alert-danger">{{ Session::get('message') }}</div>
 	@endif
 
 	{{ Form::open(array('url' => '/signin', 'method' => 'post', 'role'=>'form', 'class'=>'form-horizontal')) }}

@@ -2,6 +2,8 @@
 
 return array(
 
+	'server_url' => 'http://oauth.demo.dev/',
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode

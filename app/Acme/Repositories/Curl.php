@@ -1,5 +1,7 @@
 <?php namespace Acme\Repositories;
 
+use Illuminate\Support\Facades\Config;
+
 class Curl {
 	
 	public function __construct() {
@@ -9,7 +11,7 @@ class Curl {
 	public function postToken($client_id, $client_secret, $redirect_uri, $code) {
 
 		//set POST variables
-		$url = 'http://oauth.bintercanarias.dev/access_token';
+		$url = Config::get('app.server_url').'access_token';
 		$fields = array(
 			'client_id='.$client_id,
 			'client_secret='.$client_secret,

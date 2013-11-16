@@ -3,8 +3,8 @@
 class ServerController extends BaseController {
 
 	public function __construct() {
-		$this->beforeFilter('check-params', array('only' => array('getAuthorize', 'getSignin')));
-		$this->beforeFilter('auth', array('only' => array('getAuthorize')));
+		$this->beforeFilter('check-params', array('only' => array('getAuthorize', 'getSignin', 'postAuthorize')));
+		$this->beforeFilter('auth', array('only' => array('getAuthorize', 'postAuthorize')));
 		$this->beforeFilter('oauth', array('only' => array('getCheck')));
 		$this->beforeFilter('csrf', array('only' => array('postAuthorize')));
 		$this->beforeFilter('check-authorization-params', array('only' => array('getOAuth')));
@@ -111,14 +111,13 @@ class ServerController extends BaseController {
 
 		// Process the sign-in form submission
 		if (Input::get('signin') !== null) {
-
 			try {
 				//Login
 				if (Auth::attempt(array('username'=>Input::get('username'), 'password'=>Input::get('password')))) {
 					return Redirect::to('/authorize');
 				}
 				else { 
-					$message = 'El nombre de usario y contraseña son incorrectos';
+					$message = 'El nombre de usuario y contraseña son incorrectos';
 				}
 
 			} 
