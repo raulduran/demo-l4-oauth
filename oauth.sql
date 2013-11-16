@@ -236,7 +236,7 @@ CREATE TABLE `oauth_session_access_tokens` (
   UNIQUE KEY `oauth_session_access_tokens_access_token_session_id_unique` (`access_token`,`session_id`),
   KEY `oauth_session_access_tokens_session_id_index` (`session_id`),
   CONSTRAINT `oauth_session_access_tokens_session_id_foreign` FOREIGN KEY (`session_id`) REFERENCES `oauth_sessions` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +245,7 @@ CREATE TABLE `oauth_session_access_tokens` (
 
 LOCK TABLES `oauth_session_access_tokens` WRITE;
 /*!40000 ALTER TABLE `oauth_session_access_tokens` DISABLE KEYS */;
-INSERT INTO `oauth_session_access_tokens` VALUES (109,117,'rsDYwLVBIXEv1LHRteZ4rmi2qSlnHpjCpqb964XR',1384546583,'2013-11-15 19:16:23','2013-11-15 19:16:23'),(110,118,'Y6CSXCRvoq9fDFInN85F4gITc598PdAnEvQa3ix0',1384546611,'2013-11-15 19:16:51','2013-11-15 19:16:51');
+INSERT INTO `oauth_session_access_tokens` VALUES (156,164,'u621uKeAgSaCGJO2wS4sjVfggDsB394FaDlJH7Fc',1384603785,'2013-11-16 11:09:45','2013-11-16 11:09:45');
 /*!40000 ALTER TABLE `oauth_session_access_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,7 +294,7 @@ CREATE TABLE `oauth_session_authcodes` (
   PRIMARY KEY (`id`),
   KEY `oauth_session_authcodes_session_id_index` (`session_id`),
   CONSTRAINT `oauth_session_authcodes_session_id_foreign` FOREIGN KEY (`session_id`) REFERENCES `oauth_sessions` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=113 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -329,7 +329,7 @@ CREATE TABLE `oauth_session_redirects` (
 
 LOCK TABLES `oauth_session_redirects` WRITE;
 /*!40000 ALTER TABLE `oauth_session_redirects` DISABLE KEYS */;
-INSERT INTO `oauth_session_redirects` VALUES (117,'http://app1.dev/login/1','2013-11-15 19:16:23','2013-11-15 19:16:23'),(118,'http://app3.dev/login/3','2013-11-15 19:16:51','2013-11-15 19:16:51');
+INSERT INTO `oauth_session_redirects` VALUES (164,'http://app2.dev/login/2','2013-11-16 11:09:45','2013-11-16 11:09:45');
 /*!40000 ALTER TABLE `oauth_session_redirects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,7 +360,7 @@ CREATE TABLE `oauth_session_refresh_tokens` (
 
 LOCK TABLES `oauth_session_refresh_tokens` WRITE;
 /*!40000 ALTER TABLE `oauth_session_refresh_tokens` DISABLE KEYS */;
-INSERT INTO `oauth_session_refresh_tokens` VALUES (109,'8N6b0OTg5myOPPqKPXjof73ysisA5zSU5X2uxuOA',1385147783,'1','2013-11-15 19:16:23','2013-11-15 19:16:23'),(110,'O7kCIJU8CXwL9azxvcJBLYEXeLay1yBL5ZY5YnMv',1385147811,'3','2013-11-15 19:16:51','2013-11-15 19:16:51');
+INSERT INTO `oauth_session_refresh_tokens` VALUES (156,'ggMblZJHFobMzW1UKPoGAxneUALV2mMafOYCQ2Yw',1385204985,'2','2013-11-16 11:09:45','2013-11-16 11:09:45');
 /*!40000 ALTER TABLE `oauth_session_refresh_tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -382,7 +382,7 @@ CREATE TABLE `oauth_session_token_scopes` (
   KEY `oauth_session_token_scopes_scope_id_index` (`scope_id`),
   CONSTRAINT `oauth_session_token_scopes_session_access_token_id_foreign` FOREIGN KEY (`session_access_token_id`) REFERENCES `oauth_session_access_tokens` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `oauth_session_token_scopes_scope_id_foreign` FOREIGN KEY (`scope_id`) REFERENCES `oauth_scopes` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -391,7 +391,7 @@ CREATE TABLE `oauth_session_token_scopes` (
 
 LOCK TABLES `oauth_session_token_scopes` WRITE;
 /*!40000 ALTER TABLE `oauth_session_token_scopes` DISABLE KEYS */;
-INSERT INTO `oauth_session_token_scopes` VALUES (50,109,1,'2013-11-15 19:16:23','2013-11-15 19:16:23'),(51,110,1,'2013-11-15 19:16:51','2013-11-15 19:16:51');
+INSERT INTO `oauth_session_token_scopes` VALUES (97,156,1,'2013-11-16 11:09:45','2013-11-16 11:09:45');
 /*!40000 ALTER TABLE `oauth_session_token_scopes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,7 +412,7 @@ CREATE TABLE `oauth_sessions` (
   PRIMARY KEY (`id`),
   KEY `oauth_sessions_client_id_owner_type_owner_id_index` (`client_id`,`owner_type`,`owner_id`),
   CONSTRAINT `oauth_sessions_client_id_foreign` FOREIGN KEY (`client_id`) REFERENCES `oauth_clients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=172 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -421,7 +421,7 @@ CREATE TABLE `oauth_sessions` (
 
 LOCK TABLES `oauth_sessions` WRITE;
 /*!40000 ALTER TABLE `oauth_sessions` DISABLE KEYS */;
-INSERT INTO `oauth_sessions` VALUES (117,'1','user','1','2013-11-15 19:16:23','2013-11-15 19:16:23'),(118,'3','user','1','2013-11-15 19:16:51','2013-11-15 19:16:51');
+INSERT INTO `oauth_sessions` VALUES (164,'2','user','2','2013-11-16 11:09:45','2013-11-16 11:09:45');
 /*!40000 ALTER TABLE `oauth_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -440,7 +440,7 @@ CREATE TABLE `users` (
   `last_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -449,7 +449,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'demouser','$2y$08$1p//tq8LUBlEw0Wm096e1OG1UZI4dqdGzBXqDykQ2EavFFrf6Lx1O','Demo','User','demouser');
+INSERT INTO `users` VALUES (1,'test1','$2y$08$1p//tq8LUBlEw0Wm096e1OG1UZI4dqdGzBXqDykQ2EavFFrf6Lx1O','Test1','Lastname','test1@demo.com'),(2,'test2','$2y$08$1p//tq8LUBlEw0Wm096e1OG1UZI4dqdGzBXqDykQ2EavFFrf6Lx1O','Test2','Lastname','test2@demo.com');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -462,4 +462,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-11-15 19:18:14
+-- Dump completed on 2013-11-16 12:02:05
